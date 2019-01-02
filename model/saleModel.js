@@ -7,7 +7,7 @@ var Sale = function(sale){
   this.customer = sale.customer;
   this.price = sale.price;
   this.status = sale.status;
-  this.create_at = sale.create_at;
+  this.create_at = new Date();
 };
 
 Sale.createSale = function createUser(newSale, result){
@@ -22,7 +22,7 @@ Sale.createSale = function createUser(newSale, result){
   });
 }
 Sale.getSaleById = function createUser(saleId, result){
-  sql.query("SELECT sale.car_id, sale.customer, sale.price, sale.status, sale.create_at FROM sale INNER JOIN car ON sale.car_id = car.car_id WHERE sale_i = ? ", saleId, function(err, res){
+  sql.query("SELECT sale.car_id, sale.customer, sale.price, sale.status, sale.create_at FROM sale INNER JOIN car ON sale.car_id = car.car_id WHERE sale_id = ? ", saleId, function(err, res){
     if(err) {
       console.log("error: ", err);
       result(err, null);
