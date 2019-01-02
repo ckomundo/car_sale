@@ -33,6 +33,7 @@ CREATE TABLE `car` (
   `color` varchar(50) NOT NULL,
   `doors` int(10) UNSIGNED NOT NULL,
   `price` decimal(10,2) UNSIGNED NOT NULL,
+  `ammount` int(10) UNSIGNED NOT NULL,
   `status` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -58,24 +59,9 @@ CREATE TABLE `sale` (
 -- Disparadores `sale`
 --
 DELIMITER $$
-CREATE TRIGGER `dis_venta` AFTER INSERT ON `sale` FOR EACH ROW UPDATE stock SET ammount = ammount-1 WHERE car_id = new.car_id
+CREATE TRIGGER `dis_venta` AFTER INSERT ON `sale` FOR EACH ROW UPDATE car SET ammount = ammount-1 WHERE car_id = new.car_id
 $$
 DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `stock`
---
-
-CREATE TABLE `stock` (
-  `stock_id` int(10) UNSIGNED NOT NULL,
-  `car_id` int(10) UNSIGNED NOT NULL,
-  `ammount` int(10) UNSIGNED NOT NULL,
-  `status` int(10) UNSIGNED NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Índices para tablas volcadas
@@ -95,13 +81,6 @@ ALTER TABLE `sale`
   ADD KEY `fk_car_sale` (`car_id`);
 
 --
--- Indices de la tabla `stock`
---
-ALTER TABLE `stock`
-  ADD PRIMARY KEY (`stock_id`),
-  ADD KEY `fk_stock_sale` (`car_id`);
-
---
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -116,11 +95,6 @@ ALTER TABLE `car`
 ALTER TABLE `sale`
   MODIFY `sale_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `stock`
---
-ALTER TABLE `stock`
-  MODIFY `stock_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
 -- Restricciones para tablas volcadas
 --
 
@@ -129,12 +103,6 @@ ALTER TABLE `stock`
 --
 ALTER TABLE `sale`
   ADD CONSTRAINT `fk_car_sale` FOREIGN KEY (`car_id`) REFERENCES `car` (`car_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `stock`
---
-ALTER TABLE `stock`
-  ADD CONSTRAINT `fk_stock_sale` FOREIGN KEY (`car_id`) REFERENCES `car` (`car_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
