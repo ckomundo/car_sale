@@ -1,8 +1,8 @@
 'use strict';
 
-var sql = require('./db.js');
+const sql = require('./db.js');
 
-var Car = function(car){
+const Car = function(car){
 	this.model = car.model;
 	this.brand = car.brand;
 	this.colour = car.colour;
@@ -15,7 +15,7 @@ var Car = function(car){
 }
 
 Car.createCar = function createCar(newCar,result){
-	var query = "INSERT INTO car SET ?";
+	const query = "INSERT INTO car SET ?";
 	sql.query(query,newCar, function(err, res){
 		if (err) {
 			console.log("Error: ", err);
@@ -28,7 +28,7 @@ Car.createCar = function createCar(newCar,result){
 };
 
 Car.getCarById = function getCarById(carId, result){
-	var query = "SELECT car_id, model,brand,colour,doors,price,ammount,status,created_at FROM car where car_id = ?";
+	const query = "SELECT car_id, model,brand,colour,doors,price,ammount,status,created_at FROM car where car_id = ?";
 	sql.query(query, carId, function(err,res){
 		if (err) {
 			console.log("Error: ", err);
@@ -40,7 +40,7 @@ Car.getCarById = function getCarById(carId, result){
 };
 
 Car.getAllCar = function getAllCar(result){
-	var query = "SELECT * FROM car";
+	const query = "SELECT * FROM car";
 	sql.query(query, function(err,res){
 		if (err) {
 			console.log("Error: ", err);
@@ -52,7 +52,7 @@ Car.getAllCar = function getAllCar(result){
 };
 
 Car.updateCarById = function updateCarById(id, car, result){
-	var query = "UPDATE "+
+	const query = "UPDATE "+
 					" `car`"+
 				" SET "+
 					" `model` = ?, `brand` = ?, `colour` = ?, `doors` = ?, `price` = ?, `ammount` = ?"+
@@ -69,7 +69,7 @@ Car.updateCarById = function updateCarById(id, car, result){
 };
 
 Car.removeCarById = function removeCarById(id, result){
-	var query = "DELETE FROM car WHERE car_id = ?";
+	const query = "DELETE FROM car WHERE car_id = ?";
 	sql.query(query, [id], function(err,res){
 		if (err) {
 			console.log("Error: ", err);

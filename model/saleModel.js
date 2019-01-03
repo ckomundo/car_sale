@@ -1,8 +1,8 @@
 'user strict';
-var sql = require('./db.js');
+const sql = require('./db.js');
 
 //Sale object constructor
-var Sale = function(sale){
+const Sale = function(sale){
   this.car_id = sale.car_id;
   this.customer = sale.customer;
   this.price = sale.price;

@@ -1,6 +1,6 @@
 'use-strict';
 
-var Car = require ('../model/carModel');
+const Car = require ('../model/carModel');
 
 exports.list_all_cars = function (req, res){
 	Car.getAllCar(function(err, car){
@@ -13,7 +13,7 @@ exports.list_all_cars = function (req, res){
 };
 
 exports.create_car = function(req, res){
-	var new_car = new Car(req.body);
+	const new_car = new Car(req.body);
 
 	if(!new_car.model || !new_car.brand || !new_car.colour || !new_car.status){
 		res.status(400).send({
