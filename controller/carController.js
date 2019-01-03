@@ -3,7 +3,7 @@
 var Car = require ('../model/carModel');
 
 exports.list_all_cars = function (req, res){
-	Car.getAllCars(function(err, car){
+	Car.getAllCar(function(err, car){
 		console.log('List All Cars');
 		if(err)
 			res.send(err);
@@ -21,7 +21,7 @@ exports.create_car = function(req, res){
 			message: "Please provide model/brand/colour/status"
 		});
 	}else{
-		car.createCar(new_car, function(err, car){
+		Car.createCar(new_car, function(err, car){
 			if(err)
 				res.send(err);
 			res.json(car);
@@ -38,7 +38,7 @@ exports.read_a_car = function(req, res){
 };
 
 exports.update_a_car = function(req, res){
-	Car.updateCarById(req.params.carId, new Car(req.body) function(err, car){
+	Car.updateCarById(req.params.carId, new Car(req.body), function(err, car){
 		if(err)
 			res.send(err)
 		res.json(car);
@@ -46,9 +46,9 @@ exports.update_a_car = function(req, res){
 };
 
 exports.delete_a_car = function(req, res){
-	Car.removeCarById(req.params.CarId, function(err, car){
+	Car.removeCarById(req.params.carId, function(err, car){
 		if(err)
 			res.send(err)
-		res.json('Car successfully deleted')
+		res.json('Car successfully deleted');
 	});
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-var Sale = requiere('../model/saleModel.js');
+var Sale = require('../model/saleModel.js');
 
 exports.list_all_sale = function(req, res) {
 	Sale.getAllSale(function(err, sale){
@@ -14,13 +14,13 @@ exports.list_all_sale = function(req, res) {
 };
 exports.create_a_sale = function(req, res){
 	var new_sale = new Sale(req.body);
-	if(!new_sale.sale || !new sale.status) {
+	if(!new_sale.car_id || !new_sale.customer || !new_sale.price  || !new_sale.status){
 		res.status(4000).send({
 			error: true,
-			message: 'prese proevide sale/sta'
+			message: 'Please provider car id/customer/price/status'
 		});
-	}else {
-		task.createSale(new_sale, function(err, sale){
+	}else{
+		Sale.createSale(new_sale, function(err, sale){
 			if (err)
 				res.sed(err);
 			res.json(sale);

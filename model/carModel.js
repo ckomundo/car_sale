@@ -28,7 +28,7 @@ Car.createCar = function createCar(newCar,result){
 };
 
 Car.getCarById = function getCarById(carId, result){
-	var query = "SELECT model,brand,color,doors,price,ammount FROM car where car_id = ?";
+	var query = "SELECT car_id, model,brand,colour,doors,price,ammount,status,created_at FROM car where car_id = ?";
 	sql.query(query, carId, function(err,res){
 		if (err) {
 			console.log("Error: ", err);
@@ -53,10 +53,10 @@ Car.getAllCar = function getAllCar(result){
 
 Car.updateCarById = function updateCarById(id, car, result){
 	var query = "UPDATE "+
-					"`car`"*
+					" `car`"+
 				" SET "+
-					"`model`= ?,`brand`= ?,`color`= ?,`doors`= ?,`price`= ?,`ammount` = ?"+
-				"WHERE "+
+					" `model` = ?, `brand` = ?, `colour` = ?, `doors` = ?, `price` = ?, `ammount` = ?"+
+				" WHERE "+
 					" `car_id` = ?";
 	sql.query(query, [car.model, car.brand, car.colour, car.doors, car.price, car.ammount, id], function(err,res){
 		if (err) {
